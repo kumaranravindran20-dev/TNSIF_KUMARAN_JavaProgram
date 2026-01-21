@@ -1,17 +1,15 @@
 package com.adminservice.service;
 
-
-
-import java.util.List;
 import com.adminservice.entity.User;
+import java.util.List;
 
 public interface AdminService {
 
-    User createAdmin(User user);
-
     List<User> getAllUsers();
 
+    User createUser(User user);
+    
     User getUserById(Long id);
+    User updateUser(Long id, User user);
 
-    void deleteUser(Long id);
 }

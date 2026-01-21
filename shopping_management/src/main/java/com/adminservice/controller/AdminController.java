@@ -1,15 +1,43 @@
 package com.adminservice.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.adminservice.entity.User;
+import com.adminservice.service.AdminService;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/admin/users")
 public class AdminController {
 
-    @GetMapping("/test")
-    public String testAdmin() {
-        return "Admin Controller is working!";
+    private final AdminService adminService;
+
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
     }
+
+    // GET ALL USERS
+    @GetMapping
+    public List<User> getAllUsers() {
+        return adminService.getAllUsers();
+    }
+
+    // CREATE USER
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return adminService.createUser(user);
+    }
+    
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return adminService.getUserById(id);
+    }
+    
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+        return adminService.updateUser(id, user);
+    }
+
+
 }
